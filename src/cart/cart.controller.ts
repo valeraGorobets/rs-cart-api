@@ -6,6 +6,7 @@ import { AppRequest, getUserIdFromRequest } from '../shared';
 
 import { calculateCartTotal } from './models-rules';
 import { CartService } from './services';
+import { CartItem } from './models';
 
 @Controller('api/profile/cart')
 export class CartController {
@@ -23,7 +24,10 @@ export class CartController {
     return {
       statusCode: HttpStatus.OK,
       message: 'OK',
-      data: { cart, total: calculateCartTotal(cart) },
+      data: { cart: {
+          id: 'hello',
+          items: [],
+        } , total: calculateCartTotal(cart) },
     }
   }
 
@@ -58,7 +62,7 @@ export class CartController {
   // @UseGuards(JwtAuthGuard)
   // @UseGuards(BasicAuthGuard)
   @Post('checkout')
-  checkout(@Req() req: AppRequest, @Body() body) {
+  checkout(@Req() req, @Body() body) {
     const userId = getUserIdFromRequest(req);
     const cart = this.cartService.findByUserId(userId);
 
