@@ -2,10 +2,11 @@ service: cart-service
 
 plugins:
   - serverless-offline
+  - serverless-dotenv-plugin
 
 provider:
   name: aws
-  runtime: nodejs20.x
+  runtime: nodejs14.x
   stage: beta
   region: eu-west-1
 

@@ -6,10 +6,17 @@
     },
     "provider": {
       "name": "aws",
-      "runtime": "nodejs20.x",
+      "runtime": "nodejs14.x",
       "stage": "beta",
       "region": "eu-west-1",
       "versionFunctions": true,
+      "environment": {
+        "POSTGRES_HOST": "cart-service-postgres-db.c10gum82wmbi.eu-west-1.rds.amazonaws.com",
+        "POSTGRES_PORT": "5432",
+        "POSTGRES_DATABASE": "cartServicePostgresDB",
+        "POSTGRES_USERNAME": "postgres",
+        "POSTGRES_PASSWORD": "pAprt1loSP9tRjH1qWI6"
+      },
       "compiledCloudFormationTemplate": {
         "AWSTemplateFormatVersion": "2010-09-09",
         "Description": "The AWS CloudFormation template for this Serverless application",
@@ -174,13 +181,22 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cart-service/beta/1714142717226-2024-04-26T14:45:17.226Z/cart-service.zip"
+                "S3Key": "serverless/cart-service/beta/1714725839271-2024-05-03T08:43:59.271Z/cart-service.zip"
               },
               "Handler": "dist/main.handler",
-              "Runtime": "nodejs20.x",
+              "Runtime": "nodejs14.x",
               "FunctionName": "cart-service-beta-main",
               "MemorySize": 1024,
               "Timeout": 6,
+              "Environment": {
+                "Variables": {
+                  "POSTGRES_HOST": "cart-service-postgres-db.c10gum82wmbi.eu-west-1.rds.amazonaws.com",
+                  "POSTGRES_PORT": "5432",
+                  "POSTGRES_DATABASE": "cartServicePostgresDB",
+                  "POSTGRES_USERNAME": "postgres",
+                  "POSTGRES_PASSWORD": "pAprt1loSP9tRjH1qWI6"
+                }
+              },
               "Role": {
                 "Fn::GetAtt": [
                   "IamRoleLambdaExecution",
@@ -192,14 +208,14 @@
               "MainLogGroup"
             ]
           },
-          "MainLambdaVersionG7ZTDFthmNs6QrLiw2fE06kFcuZJ1JkCULdCBTxVA": {
+          "MainLambdaVersionQDgS49Zq8wG2TACQNjquL0815JPbp4JAoi7F8jRAk": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "MainLambdaFunction"
               },
-              "CodeSha256": "47HmeXsIdeHKMlpKqmMpgv8VcyyFCxIDETc7bXrn7xc="
+              "CodeSha256": "mMLYVnF33Z8q6k6mX6sff8wYRnfORIywbnvh+kFr9OE="
             }
           },
           "ApiGatewayRestApi": {
@@ -324,7 +340,7 @@
               "MainLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1714142684063": {
+          "ApiGatewayDeployment1714725807537": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -387,7 +403,7 @@
           "MainLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "MainLambdaVersionG7ZTDFthmNs6QrLiw2fE06kFcuZJ1JkCULdCBTxVA"
+              "Ref": "MainLambdaVersionQDgS49Zq8wG2TACQNjquL0815JPbp4JAoi7F8jRAk"
             },
             "Export": {
               "Name": "sls-cart-service-beta-MainLambdaFunctionQualifiedArn"
@@ -506,7 +522,8 @@
       "vpc": {}
     },
     "plugins": [
-      "serverless-offline"
+      "serverless-offline",
+      "serverless-dotenv-plugin"
     ],
     "pluginsData": {},
     "functions": {
@@ -532,9 +549,9 @@
         "package": {},
         "memory": 1024,
         "timeout": 6,
-        "runtime": "nodejs20.x",
+        "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "MainLambdaVersionG7ZTDFthmNs6QrLiw2fE06kFcuZJ1JkCULdCBTxVA"
+        "versionLogicalId": "MainLambdaVersionQDgS49Zq8wG2TACQNjquL0815JPbp4JAoi7F8jRAk"
       }
     },
     "configValidationMode": "warn",
@@ -556,7 +573,7 @@
     "artifact": "/home/valera/Documents/aws-mentoring/rs-cart-api/.serverless/cart-service.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/cart-service/beta/1714142717226-2024-04-26T14:45:17.226Z",
+    "artifactDirectoryName": "serverless/cart-service/beta/1714725839271-2024-05-03T08:43:59.271Z",
     "artifact": "cart-service.zip"
   }
 }
